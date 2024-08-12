@@ -1,0 +1,40 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: test_sum
+      id: test_sum
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_sum
+        setup-command: ''
+        command: node tests/test_sum.js
+        timeout: 10
+        max-score: 10
+    - name: test_greeting
+      id: test_greeting
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: test_greeting
+        setup-command: ''
+        command: node tests/test_greeting.js
+        timeout: 10
+        max-score: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        TEST_SUM_RESULTS: "${{steps.test_sum.outputs.result}}"
+        TEST_GREETING_RESULTS: "${{steps.test_greeting.outputs.result}}"
+      with:
+        runners: test_sum,test_greeting
