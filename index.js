@@ -4,6 +4,14 @@ function sum(value1, value2){
     parameters then return the result
     */
     // YOUR CODE HERE ....
+    function addValues(a, b) {
+        return a + b;
+    }
+    
+    // Example usage:
+    const result = addValues(5, 3);
+    console.log(result); // Output: 8
+    
     
 }
 
@@ -20,6 +28,13 @@ const greeting = (name) => {
     */
 
     // YOUR CODE HERE ...
+    const greeting = (name) => {
+        return `Hello ${name}!`;
+    };
+    
+    // Example usage:
+    const result = greeting('natt');
+    console.log(result); // Output: Hello natt!
     
 }
 
